@@ -12,8 +12,8 @@ public class Simulacao implements Serializable {
     private static final long serialVersionUID = 1l;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
 
     @Column(nullable = false)
     private String valorEntrada;
@@ -29,11 +29,11 @@ public class Simulacao implements Serializable {
     @Column(nullable = false)
     private LocalDateTime dataSimulacao;
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

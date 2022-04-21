@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class SimulacaoService {
@@ -35,5 +38,18 @@ public class SimulacaoService {
     @Transactional
     public Simulacao save(Simulacao simulacao) {
         return simulacaoRepository.save(simulacao);
+    }
+
+    public Optional<Simulacao> findById(Integer id) {
+        return simulacaoRepository.findById(id);
+    }
+
+    public List<Simulacao> listaSimulacao() {
+        return simulacaoRepository.findAll();
+    }
+
+    @Transactional
+    public void deletaSimulacao(Simulacao simulacao) {
+        simulacaoRepository.delete(simulacao);
     }
 }

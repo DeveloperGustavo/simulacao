@@ -13,8 +13,9 @@ services:
       MYSQL_PASSWORD: password
 
   app:
-    image: simulacao-app
+    image: gtbarbosa/simulacao-app
     container_name: simulacao-app
+    restart: on-failure
     build: .
     ports:
       - 8080:8080

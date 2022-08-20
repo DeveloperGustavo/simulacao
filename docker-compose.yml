@@ -3,14 +3,18 @@ services:
 
   mysqldb:
     image: mysql:8
+    container_name: mysql-simulacao-bd
     networks:
       - bd-network
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=simulacao
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: simulacao
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
 
   app:
     image: simulacao-app
+    container_name: simulacao-app
     build: .
     ports:
       - 8080:8080

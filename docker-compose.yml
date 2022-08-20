@@ -1,4 +1,23 @@
 version: '3'
 services:
-  simulacao-app:
+
+  mysqldb:
+    image: mysql:8
+    networks:
+      - bd-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=simulacao
+
+  app:
+    image: simulacao-app
     build: .
+    ports:
+      - 8080:8080
+    networks:
+      - bd-network
+    depends_on:
+      - mysqldb
+
+networks:
+  bd-network:

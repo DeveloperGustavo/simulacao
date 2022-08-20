@@ -6,16 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@RestController
 public class SimulacaoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SimulacaoApplication.class, args);
 	}
-
-	@GetMapping("/")
-	public String index() {
-		return "Olá mundo";
-	}
-
 }

@@ -11,6 +11,13 @@ public class Simulacao implements Serializable {
 
     private static final long serialVersionUID = 1l;
 
+    public Simulacao(String valorEntrada, String valorFinanciamento, String quantidadeParcelas, LocalDateTime dataSimulacao) {
+        this.valorEntrada = valorEntrada;
+        this.valorFinanciamento = valorFinanciamento;
+        this.quantidadeParcelas = quantidadeParcelas;
+        this.dataSimulacao = dataSimulacao;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;

@@ -41,12 +41,12 @@ public class SimulacaoController {
      */
     @PostMapping
     public ResponseEntity<Object> salvaSimulacao(@RequestBody @Valid SimulacaoDto simulacaoDto) {
-        Simulacao simulacao = new Simulacao();
+        Simulacao simulacao = new Simulacao(
+                simulacaoDto.getValorEntrada(),
+                simulacaoDto.getValorFinanciamento(),
+                simulacaoDto.getQuantidadeParcelas(),
+                LocalDateTime.now(ZoneId.of("UTC")));
 
-        // Convertendo o Dto em Model
-        BeanUtils.copyProperties(simulacaoDto, simulacao);
-
-        simulacao.setDataSimulacao(LocalDateTime.now(ZoneId.of("UTC")));
         return ResponseEntity.status(HttpStatus.CREATED).body(simulacaoService.save(simulacao));
     }
 
@@ -74,10 +74,14 @@ public class SimulacaoController {
             map.put("mensagem", MensagemErro.NAO_ENCONTRADO.getMensagem());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
         }
-        Simulacao simulacao = new Simulacao();
-        BeanUtils.copyProperties(simulacaoDto, simulacao);
+        Simulacao simulacao = new Simulacao(
+                simulacaoDto.getValorEntrada(),
+                simulacaoDto.getValorFinanciamento(),
+                simulacaoDto.getQuantidadeParcelas(),
+                LocalDateTime.now(ZoneId.of("UTC")));
+
         simulacao.setId(simulacaoOptional.get().getId());
-        simulacao.setDataSimulacao(LocalDateTime.now(ZoneId.of("UTC")));
+
         return ResponseEntity.status(HttpStatus.OK).body(simulacaoService.save(simulacao));
     }
 

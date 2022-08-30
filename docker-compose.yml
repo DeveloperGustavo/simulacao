@@ -12,6 +12,15 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
 
+  mq:
+    image: rabbitmq:3
+    container_name: rabbit-mq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - bd-network
+
   app:
     image: gtbarbosa/simulacao-app
     container_name: simulacao-app
@@ -25,6 +34,7 @@ services:
       - bd-network
     depends_on:
       - mysqldb
+      - mq
 
 networks:
   bd-network:

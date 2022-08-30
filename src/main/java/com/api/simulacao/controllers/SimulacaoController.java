@@ -3,8 +3,10 @@ package com.api.simulacao.controllers;
 import com.api.simulacao.dtos.SimulacaoDto;
 import com.api.simulacao.mensagens.MensagemErro;
 import com.api.simulacao.models.Simulacao;
+import com.api.simulacao.queue.SimulacaoSender;
 import com.api.simulacao.services.SimulacaoService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,9 @@ public class SimulacaoController {
     final SimulacaoService simulacaoService;
     final HashMap<String, Object> map;
 
+    @Autowired
+    SimulacaoSender simulacaoSender;
+
     public SimulacaoController(SimulacaoService simulacaoService, HashMap<String, Object> map) {
         this.simulacaoService = simulacaoService;
         this.map = map;
@@ -41,12 +46,7 @@ public class SimulacaoController {
      */
     @PostMapping
     public ResponseEntity<Object> salvaSimulacao(@RequestBody @Valid SimulacaoDto simulacaoDto) {
-        Simulacao simulacao = new Simulacao(
-                simulacaoDto.getValorEntrada(),
-                simulacaoDto.getValorFinanciamento(),
-                simulacaoDto.getQuantidadeParcelas(),
-                LocalDateTime.now(ZoneId.of("UTC")));
-
+        Simulacao simulacao = new Simulacao(simulacaoDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(simulacaoService.save(simulacao));
     }
 
@@ -74,11 +74,7 @@ public class SimulacaoController {
             map.put("mensagem", MensagemErro.NAO_ENCONTRADO.getMensagem());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
         }
-        Simulacao simulacao = new Simulacao(
-                simulacaoDto.getValorEntrada(),
-                simulacaoDto.getValorFinanciamento(),
-                simulacaoDto.getQuantidadeParcelas(),
-                LocalDateTime.now(ZoneId.of("UTC")));
+        Simulacao simulacao = new Simulacao(simulacaoDto);
 
         simulacao.setId(simulacaoOptional.get().getId());
 
@@ -97,5 +93,10 @@ public class SimulacaoController {
         map.put("codigo", MensagemErro.DELETADO.getCodigo());
         map.put("mensagem", MensagemErro.DELETADO.getMensagem());
         return ResponseEntity.status(HttpStatus.OK).body(map);
+    }
+
+    @PostMapping("/send_message")
+    public void send(@RequestBody Simulacao simulacao) {
+        this.simulacaoSender.send(simulacao);
     }
 }

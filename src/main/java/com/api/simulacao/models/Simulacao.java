@@ -1,8 +1,11 @@
 package com.api.simulacao.models;
 
+import com.api.simulacao.dtos.SimulacaoDto;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.UUID;
 
 @Entity
@@ -11,11 +14,14 @@ public class Simulacao implements Serializable {
 
     private static final long serialVersionUID = 1l;
 
-    public Simulacao(String valorEntrada, String valorFinanciamento, String quantidadeParcelas, LocalDateTime dataSimulacao) {
-        this.valorEntrada = valorEntrada;
-        this.valorFinanciamento = valorFinanciamento;
-        this.quantidadeParcelas = quantidadeParcelas;
-        this.dataSimulacao = dataSimulacao;
+    public Simulacao() {
+    }
+
+    public Simulacao(SimulacaoDto simulacao) {
+        this.valorEntrada = simulacao.getValorEntrada();
+        this.valorFinanciamento = simulacao.getValorFinanciamento();
+        this.quantidadeParcelas = simulacao.getQuantidadeParcelas();
+        this.dataSimulacao = LocalDateTime.now(ZoneId.of("UTC"));
     }
 
     @Id

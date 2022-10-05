@@ -27,9 +27,9 @@ services:
     restart: on-failure
     build: .
     ports:
-      - 8080:8080
+      - 80:80
     expose:
-      - 8080
+      - 80
     networks:
       - bd-network
     depends_on:

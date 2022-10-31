@@ -95,8 +95,8 @@ public class SimulacaoController {
         return ResponseEntity.status(HttpStatus.OK).body(map);
     }
 
-    @PostMapping("/send_message")
-    public void send(@RequestBody Simulacao simulacao) {
-        this.simulacaoSender.send(simulacao);
-    }
+//    @PostMapping("/send_message")
+//    public void send(@RequestBody Simulacao simulacao) {
+//        this.simulacaoSender.send(simulacao);
+//    }
 }

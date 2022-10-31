@@ -3,7 +3,7 @@ package com.api.simulacao.controllers;
 import com.api.simulacao.dtos.SimulacaoDto;
 import com.api.simulacao.mensagens.MensagemErro;
 import com.api.simulacao.models.Simulacao;
-import com.api.simulacao.queue.SimulacaoSender;
+//import com.api.simulacao.queue.SimulacaoSender;
 import com.api.simulacao.services.SimulacaoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,8 @@ public class SimulacaoController {
     final SimulacaoService simulacaoService;
     final HashMap<String, Object> map;
 
-    @Autowired
-    SimulacaoSender simulacaoSender;
+//    @Autowired
+//    SimulacaoSender simulacaoSender;
 
     public SimulacaoController(SimulacaoService simulacaoService, HashMap<String, Object> map) {
         this.simulacaoService = simulacaoService;
